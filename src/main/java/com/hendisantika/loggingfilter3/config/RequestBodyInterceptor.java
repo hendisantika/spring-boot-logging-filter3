@@ -34,4 +34,9 @@ public class RequestBodyInterceptor extends RequestBodyAdviceAdapter {
         logService.displayRequest(request, body);
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
     }
+
+    @Override
+    public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
+        return true;
+    }
 }
