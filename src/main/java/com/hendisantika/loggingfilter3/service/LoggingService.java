@@ -1,6 +1,7 @@
 package com.hendisantika.loggingfilter3.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,18 @@ public class LoggingService {
         }
 
         log.info("log Request: {}", reqMessage);
+    }
+
+    public void displayResp(HttpServletRequest request, HttpServletResponse response, Object body) {
+        StringBuilder respMessage = new StringBuilder();
+        Map<String, String> headers = getHeaders(response);
+        respMessage.append("RESPONSE ");
+        respMessage.append(" method = [").append(request.getMethod()).append("]");
+        if (!headers.isEmpty()) {
+            respMessage.append(" ResponseHeaders = [").append(headers).append("]");
+        }
+        respMessage.append(" responseBody = [").append(body).append("]");
+
+        log.info("logResponse: {}", respMessage);
     }
 }
