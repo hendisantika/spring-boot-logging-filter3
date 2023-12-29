@@ -1,8 +1,12 @@
 package com.hendisantika.loggingfilter3.controller;
 
+import com.hendisantika.loggingfilter3.entity.Student;
 import com.hendisantika.loggingfilter3.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Time: 08:16
  * To change this template use File | Settings | File Templates.
  */
+@Slf4j
 @RestController
 @RequestMapping("/students")
 @RequiredArgsConstructor
@@ -23,4 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
 
     private final StudentRepository studentRepository;
+
+    @PostMapping
+    public Student addStudent(@RequestBody Student student) {
+        log.info("Student: " + student);
+        return studentRepository.save(student);
+    }
+
 }
