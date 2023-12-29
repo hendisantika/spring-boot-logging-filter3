@@ -38,4 +38,11 @@ public class MainController {
     public List<Student> getStudents() {
         return studentRepository.findAll();
     }
+
+    @PutMapping
+    @Transactional(rollbackOn = Exception.class)
+    public Student updateStudentAddress(@RequestParam("Address") String address, @RequestParam("Id") Integer Id) {
+        studentRepository.updateAddressById(address, Id);
+        return studentRepository.getById(Id);
+    }
 }
