@@ -4,8 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
 
@@ -33,5 +37,12 @@ public class ErrorController extends AbstractErrorController {
     @Override
     protected Map<String, Object> getErrorAttributes(HttpServletRequest request, ErrorAttributeOptions options) {
         return super.getErrorAttributes(request, options);
+    }
+
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> handleError(HttpServletRequest request, WebRequest webRequest) {
+        Map<String, Object> body = getErrorAttributes(webRequest);
+        HttpStatus status = getStatus(request);
+        return new ResponseEntity<>(body, status);
     }
 }
