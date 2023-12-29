@@ -5,6 +5,8 @@ import com.hendisantika.loggingfilter3.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,5 +46,15 @@ public class MainController {
     public Student updateStudentAddress(@RequestParam("Address") String address, @RequestParam("Id") Integer Id) {
         studentRepository.updateAddressById(address, Id);
         return studentRepository.getById(Id);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteStudent(@RequestParam("Id") Integer Id) {
+        studentRepository.deleteById(Id);
+        Boolean studentExists = studentRepository.existsById(Id);
+        if (!studentExists) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
