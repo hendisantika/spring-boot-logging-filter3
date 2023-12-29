@@ -2,6 +2,8 @@ package com.hendisantika.loggingfilter3.config;
 
 import com.hendisantika.loggingfilter3.service.LoggingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.MethodParameter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -20,4 +22,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class ResponseBodyInterceptor implements ResponseBodyAdvice<Object> {
 
     private final LoggingService loggingService;
+
+    @Override
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        return true;
+    }
 }
