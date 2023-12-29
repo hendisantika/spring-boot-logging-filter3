@@ -45,4 +45,9 @@ public class ErrorController extends AbstractErrorController {
         HttpStatus status = getStatus(request);
         return new ResponseEntity<>(body, status);
     }
+
+    private Map<String, Object> getErrorAttributes(WebRequest webRequest) {
+        return this.errorAttributes.getErrorAttributes(webRequest,
+                ErrorAttributeOptions.defaults());
+    }
 }
