@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ import static sun.tools.jconsole.inspector.Utils.getParameters;
 @Slf4j
 @Service
 public class LoggingService {
-    public void displayReq(HttpServletRequest request, Object body) {
+    public void displayRequest(HttpServletRequest request, Object body) {
         StringBuilder reqMessage = new StringBuilder();
         Map<String, String> parameters = getParameters(request);
 
@@ -42,7 +44,7 @@ public class LoggingService {
         log.info("log Request: {}", reqMessage);
     }
 
-    public void displayResp(HttpServletRequest request, HttpServletResponse response, Object body) {
+    public void displayResponse(HttpServletRequest request, HttpServletResponse response, Object body) {
         StringBuilder respMessage = new StringBuilder();
         Map<String, String> headers = getHeaders(response);
         respMessage.append("RESPONSE ");
@@ -53,5 +55,14 @@ public class LoggingService {
         respMessage.append(" responseBody = [").append(body).append("]");
 
         log.info("logResponse: {}", respMessage);
+    }
+
+    private Map<String, String> getHeaders(HttpServletResponse response) {
+        Map<String, String> headers = new HashMap<>();
+        Collection<String> headerMap = response.getHeaderNames();
+        for (String str : headerMap) {
+            headers.put(str, response.getHeader(str));
+        }
+        return headers;
     }
 }
