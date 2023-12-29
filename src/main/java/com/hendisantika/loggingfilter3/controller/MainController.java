@@ -43,9 +43,9 @@ public class MainController {
 
     @PutMapping
     @Transactional(rollbackOn = Exception.class)
-    public Student updateStudentAddress(@RequestParam("Address") String address, @RequestParam("Id") Integer Id) {
-        studentRepository.updateAddressById(address, Id);
-        return studentRepository.getById(Id);
+    public Student updateStudentAddress(@RequestParam("address") String address, @RequestParam("id") Integer id) {
+        studentRepository.updateAddressById(address, id);
+        return studentRepository.getById(id);
     }
 
     @DeleteMapping

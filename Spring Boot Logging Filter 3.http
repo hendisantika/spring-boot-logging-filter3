@@ -1,0 +1,16 @@
+### Add Mew Student
+POST http://localhost:8081/students
+Content-Type: application/json
+
+{
+  "fullName": "Itadori Yuuji",
+  "age": 17,
+  "address": "Tokyo"
+}
+
+### Get All Students
+GET http://localhost:8081/students
+
+###
+PUT http://localhost:8081/students?address=OSAKA&id=1
+Content-Type: application/x-www-form-urlencoded
