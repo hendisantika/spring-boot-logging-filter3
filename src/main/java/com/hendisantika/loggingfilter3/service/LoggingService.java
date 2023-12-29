@@ -5,12 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-import static sun.tools.jconsole.inspector.Utils.getParameters;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -64,5 +59,16 @@ public class LoggingService {
             headers.put(str, response.getHeader(str));
         }
         return headers;
+    }
+
+    private Map<String, String> getParameters(HttpServletRequest request) {
+        Map<String, String> parameters = new HashMap<>();
+        Enumeration<String> params = request.getParameterNames();
+        while (params.hasMoreElements()) {
+            String paramName = params.nextElement();
+            String paramValue = request.getParameter(paramName);
+            parameters.put(paramName, paramValue);
+        }
+        return parameters;
     }
 }
